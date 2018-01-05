@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const app = express();
@@ -7,5 +9,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(8080, () => {
-  console.log('Example app listening on port 8080!');
+  console.log(`Example app listening on port 8080! The env is: ${process.env.NODE_ENV}`);
 });
