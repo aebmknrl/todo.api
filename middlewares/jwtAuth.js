@@ -1,8 +1,4 @@
-const Users = require('../models/Users');
-
 const jwt = require('jsonwebtoken');
-
-const _ = require('lodash');
 
 const jwtAuth = (req, res, next) => {
     if (req.path === '/' || req.path === '/auth/signin' || req.method === 'OPTIONS') {
@@ -27,14 +23,6 @@ const jwtAuth = (req, res, next) => {
         if (err) {
             console.log(err.message);
             return res.status(403).send({ error: 'token invalid' });
-        }
-        // Find the user and authenticate it
-        const user = _.find(Users, (o) => {
-            return o.username === decoded.username;
-        });
-
-        if (!user) {
-            return res.status(403).send({ error: 'user or password invalid' });
         }
         return next();
     });

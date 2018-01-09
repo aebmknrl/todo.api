@@ -4,15 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "createdb": "sequelize db:create",
+    "migrate": "sequelize db:migrate",
+    "refresh": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
+    "seed": "sequelize db:seed:all"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.29.2",
+    "sequelize-cli": "^3.2.0",
     "validatorjs": "^3.13.6"
   },
   "devDependencies": {

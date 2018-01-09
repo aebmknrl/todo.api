@@ -5,5 +5,6 @@
         "no-use-before-define": ["error", { "functions": false, "classes": true }],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "prefer-destructuring": ["error", {"object": false, "array": false}],
+        "indent": ["error", 4]
     }
 }
