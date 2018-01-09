@@ -19,9 +19,9 @@ const jwtAuth = (req, res, next) => {
         token = token[0];
     }
 
-    jwt.verify(token, process.env.KEY_APP, (err, decoded) => {
+    jwt.verify(token, process.env.KEY_APP, (err) => {
         if (err) {
-            console.log(err.message);
+            // console.log(err.message);
             return res.status(403).send({ error: 'token invalid' });
         }
         return next();

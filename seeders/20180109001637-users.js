@@ -4,12 +4,20 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         const plainPassword = '$$abc@123$$';
         const hashedPassword = bcrypt.hashSync(plainPassword, 10);
-        queryInterface.bulkInsert('users', [{
-            username: 'alienriquebm',
-            password: hashedPassword,
-            createdAt: '2017-05-25 02:45:14',
-            updatedAt: '2017-05-25 02:45:14',
-        }], {});
+        queryInterface.bulkInsert('users', [
+            {
+                username: 'alienriquebm',
+                password: hashedPassword,
+                createdAt: '2017-05-25 02:45:14',
+                updatedAt: '2017-05-25 02:45:14',
+            },
+            {
+                username: 'admin',
+                password: hashedPassword,
+                createdAt: '2017-05-25 02:45:14',
+                updatedAt: '2017-05-25 02:45:14',
+            },
+        ], {});
     },
     down: (queryInterface, Sequelize) => {
         /*
