@@ -1,28 +1,36 @@
 module.exports = {
     up: (queryInterface, Sequelize) =>
-        queryInterface.createTable('users', {
+        queryInterface.createTable('todos', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            username: {
-                type: Sequelize.STRING,
+            description: {
                 allowNull: false,
-                unique: true,
+                type: Sequelize.TEXT,
             },
-            password: {
-                type: Sequelize.STRING,
+            isCompleted: {
                 allowNull: false,
+                type: Sequelize.BOOLEAN,
             },
-            name: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            lastname: {
-                type: Sequelize.STRING,
+            color: {
                 allowNull: true,
+                type: Sequelize.STRING,
+            },
+            icon: {
+                allowNull: true,
+                type: Sequelize.STRING,
+            },
+            userId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                foreignKey: true,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                },
             },
             createdAt: {
                 allowNull: false,
@@ -33,5 +41,5 @@ module.exports = {
                 type: Sequelize.DATE,
             },
         }),
-    down: (queryInterface, Sequelize) => queryInterface.dropTable('users'),
+    down: (queryInterface, Sequelize) => queryInterface.dropTable('todos'),
 };

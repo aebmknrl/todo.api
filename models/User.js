@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/dbconnection');
+const Todo = require('./Todo');
+const UserTodo = require('./UserTodo');
 
 const fields = {
     id: {
@@ -35,10 +37,13 @@ const fields = {
     },
 };
 
-const Users = sequelize.define('User', fields);
-Users.list = userId => sequelize
+const model = sequelize.define('users', fields);
+model.list = userId => sequelize
     .query(
         'SELECT u.id, u.username, u.name, u.lastname FROM users u WHERE id != :userId ORDER BY u.id',
         { type: sequelize.QueryTypes.SELECT, replacements: { userId } },
     );
-module.exports = Users;
+
+model.belongsToMany(Todo, { through: UserTodo });
+
+module.exports = model;
