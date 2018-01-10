@@ -15,7 +15,7 @@ router.get('/test', async (req, res, next) => {
 });
 router.get('/listusers', async (req, res, next) => {
     try {
-        const userList = await Users.list();
+        const userList = await Users.list(req.userId);
         res.send(userList);
     } catch (err) {
         return err;

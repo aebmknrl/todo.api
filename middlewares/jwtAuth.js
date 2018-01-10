@@ -19,11 +19,12 @@ const jwtAuth = (req, res, next) => {
         token = token[0];
     }
 
-    jwt.verify(token, process.env.KEY_APP, (err) => {
+    jwt.verify(token, process.env.KEY_APP, (err, decode) => {
         if (err) {
             // console.log(err.message);
             return res.status(403).send({ error: 'token invalid' });
         }
+        req.userId = decode.id;
         return next();
     });
     return true;

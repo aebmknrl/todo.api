@@ -8,12 +8,15 @@ module.exports = {
             {
                 username: 'alienriquebm',
                 password: hashedPassword,
+                name: 'Ali',
+                lastname: 'Briceño',
                 createdAt: '2017-05-25 02:45:14',
                 updatedAt: '2017-05-25 02:45:14',
             },
             {
                 username: 'admin',
                 password: hashedPassword,
+                name: 'Admin',
                 createdAt: '2017-05-25 02:45:14',
                 updatedAt: '2017-05-25 02:45:14',
             },
