@@ -38,7 +38,7 @@ const fields = {
 };
 
 const model = sequelize.define('users', fields);
-model.list = userId => sequelize
+model.dropdown = userId => sequelize
     .query(
         'SELECT u.id, u.username, u.name, u.lastname FROM users u WHERE id != :userId ORDER BY u.id',
         { type: sequelize.QueryTypes.SELECT, replacements: { userId } },

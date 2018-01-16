@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.use('/auth', require('../controllers/AuthController'));
+router.use('/user', require('../controllers/UserController'));
 router.use('/db', require('../controllers/DbController'));
 
 router.get('/', (req, res) => {
