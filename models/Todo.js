@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/dbconnection');
 const User = require('./User');
-const UserTodo = require('./UserTodo');
+// const UserTodo = require('./UserTodo');
 
 const fields = {
     id: {
@@ -45,5 +45,8 @@ const fields = {
 };
 
 const model = sequelize.define('todos', fields);
-model.belongsToMany(User, { through: UserTodo });
+
+model.belongsTo(User);
+model.belongsToMany(User, { through: 'users__todos', as: 'SharedTodosUsers', foreignKey: 'todoId' });
+// User.hasMany(model, { through: 'users__todos', as: 'Todos', foreignKey: 'userId' });
 module.exports = model;

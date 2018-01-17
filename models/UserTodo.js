@@ -27,4 +27,5 @@ const fields = {
 };
 
 const model = sequelize.define('users__todos', fields);
+
 module.exports = model;

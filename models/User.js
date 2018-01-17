@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/dbconnection');
-const Todo = require('./Todo');
-const UserTodo = require('./UserTodo');
+// const Todo = require('./Todo');
 
 const fields = {
     id: {
@@ -44,6 +43,36 @@ model.dropdown = userId => sequelize
         { type: sequelize.QueryTypes.SELECT, replacements: { userId } },
     );
 
-model.belongsToMany(Todo, { through: UserTodo });
+const cleanTodosOfUser = async (userId, transaction) => {
+    await sequelize.query(
+        'DELETE FROM users__todos WHERE userId = :userId',
+        {
+            type: sequelize.QueryTypes.DELETE,
+            replacements: { userId },
+            transaction,
+        },
+    );
+};
+
+const insertTodosToUser = async (todoIds, userId, transaction) => {
+    await sequelize.query(
+        `INSERT INTO users__todos SELECT null, :userId, t.id, NOW(), NOW() FROM todos t WHERE t.id IN (${todoIds.join()})`,
+        {
+            type: sequelize.QueryTypes.INSERT,
+            replacements: { userId },
+            transaction,
+        },
+    );
+};
+
+model.setTodos = (todoIds, userId) => sequelize.transaction(async (t) => {
+    await cleanTodosOfUser(userId, t);
+    await insertTodosToUser(todoIds, userId, t);
+    return { id: userId, todos: todoIds };
+});
+
+// model.hasMany('todos');
+// model.belongsToMany('todos', { through: 'users__todos', as: 'MySharedTodos', foreignKey: 'userId' });
+// Todo.belongsToMany(model, { through: 'users__todos', as: 'Users', foreignKey: 'todoId' });
 
 module.exports = model;
